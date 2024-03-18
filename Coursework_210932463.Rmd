@@ -1,0 +1,80 @@
+---
+title: "MTH6139 Time Series"
+subtitle: "Coursework 1"
+author:
+- name: School of Mathematical Sciences # replace this by your name
+date: "March 2024"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r, echo=FALSE}
+htmltools::img(src = knitr::image_uri("QMlogo.png"), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width:30%;')
+
+co2.df = data.frame(
+  ds=zoo::as.yearmon(time(co2)), 
+  y=co2)
+m = prophet::prophet(co2.df)
+f = prophet::make_future_dataframe(m, periods=8, freq="quarter")
+p = predict(m, f)
+plot(m,p)
+summary(co2.df)
+head(co2.df)
+tail(co2.df)
+attach(co2.df)
+plot(head(co2.df), type ="o", xlab="Year", ylab="co2")
+plot(tail(co2.df), type ="o", xlab="Year", ylab="co2")
+```
+
+
+Description of co2:
+Atmospheric concentrations of CO2 are expressed in parts per million (ppm) and reported in the preliminary 1997 SIO manometric mole fraction scale.
+
+
+
+Format:
+A time series of 468 observations; monthly from 1959 to 1997.
+
+
+
+References:
+Cleveland, W. S. (1993) Visualizing Data. New Jersey: Summit Press.
+
+
+
+The purpose of the project is to see how the concentration of co2 change with time.
+
+
+
+
+It can be seen that there is an upward trend which shows that the concentration of carbon dioxide is rising between year 1959 and year 2000. The y-axis of the graph shows the concentration of co2 with data between 310 and 370, x-axis shows the time of year. The graph also shows that there is fluctuations through out the 40 year time which indicates that the concentration of co2 changes with seasons, this means it shows seasonality with the data.
+
+
+ ds             y        
+ Min.   :1959   Min.   :313.2  
+ 1st Qu.:1969   1st Qu.:323.5  
+ Median :1978   Median :335.2  
+ Mean   :1978   Mean   :337.1  
+ 3rd Qu.:1988   3rd Qu.:350.3  
+ Max.   :1998   Max.   :366.8  
+ 
+This shows the minimum and maximum level concentration of co2 between year 1959 to 1998, with minimum level of 313.2 and maximum level of 366.8. The level of concentration of co2 has rise for 53.2ppm through out the 39 years.
+
+<-head(co2.df)
+This shows the first 6 rows of the data
+
+<-tail(co2.df)
+This shows the last 6 rows of the data 
+
+
+
+
+   
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
